@@ -8,7 +8,6 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\FollowsController;
 use App\Mail\WelcomeToMiniGram;
 use Egulias\EmailValidator\Warning\Comment;
-use App\Models\Order;
 use Illuminate\Http\Request;
 
 /*
@@ -26,26 +25,26 @@ Route::get('/email', function () {
     return new WelcomeToMiniGram();
 });
 
-//authantication
+//authentication
 Auth::routes();
 
 //following
-Route::post('follow/{user}', [FollowsController::class,'store']);
+Route::post('follow/{user}', [FollowsController::class,'store'])->name('timeline.index');
 
 //timeline
-Route::get('/',[PostsController::class,'index']);
+Route::get('/',[PostsController::class,'index'])->name('timeline.index');
 
 //posts routes
-Route::get('/p/create', [PostsController::class,'create']);
-Route::post('/p', [PostsController::class,'store']);
-Route::get('/p/{post}/edit', [PostsController::class,'edit']);
-Route::patch('/p/{post}', [PostsController::class,'update']);
-Route::get('/p/{post}', [PostsController::class,'show']);
+Route::get('/p/create', [PostsController::class,'create'])->name('post.create');
+Route::post('/p', [PostsController::class,'store'])->name('post.store');
+Route::get('/p/{post}/edit', [PostsController::class,'edit'])->name('	post.edit');
+Route::patch('/p/{post}', [PostsController::class,'update'])->name('post.update');
+Route::get('/p/{post}', [PostsController::class,'show'])->name('post.show');
 Route::get('/p/{post}/destroy', [PostsController::class,'destroy']);
 Route::post('/p/{post}/destroy', [PostsController::class,'destroy']);
 
 //profile routes
-Route::get('/profile/{user}', [ProfilesController::class,'index'])->name('profile.show');
+Route::get('/profile/{user}', [ProfilesController::class,'index']) ->name('profile.show');
 Route::get('/profile/{user}/edit', [ProfilesController::class,'edit'])->name('profile.edit');
 Route::patch('/profile/{user}', [ProfilesController::class,'update'])->name('profile.update');
 

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Intervention\Image\Facades\Image;
 
@@ -25,6 +25,7 @@ class ProfilesController extends Controller
     }
 
     public function update(User $user) {
+       // dd($user,\request('image'));
         $data = request()->validate([
             'title' => 'required',
             'description' => 'required',
@@ -35,16 +36,16 @@ class ProfilesController extends Controller
 
         if (request('image')){
             $imagePath = request('image')->store('profile','public');
-            $image = Image::make(public_path("storage/{$imagePath}"))->fit(1000,1000);
+            $image = Image::make(public_path("storage/{$imagePath}"));
             $image->save();
             $imageArray = ['image' =>$imagePath];
         }
 
-        auth()->user()->profile->update(array_merge(
+        $user->profile->update(array_merge(
             $data ,
             $imageArray ?? []
         ));
 
-        return redirect("/profile/{$user->id}");
+        return redirect()->route('profile.show',compact($user));
         }
 }

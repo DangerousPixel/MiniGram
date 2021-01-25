@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <form action="/profile/{{$user->id}}" enctype="multipart/form-data" method="post">
+    <form action="{{route('')}}" enctype="multipart/form-data" method="post">
         @csrf
         @method('PATCH')
 
@@ -63,7 +63,7 @@
                      <strong>{{ $errors->first('image') }}</strong>
                     @enderror
                 </div>
-                <div class="row pt-3">
+                <div class="row pt-5">
                     <button class="btn-primary"> Save Profile </button>
                 </div>
             </div>

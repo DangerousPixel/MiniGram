@@ -4,11 +4,11 @@
 <div class="container">
    <div class="row">
        <div class="col-3 p-5">
-        <img src="{{$user->profile->profileImage()}}" class="rounded-circle" style="height:150px">
+        <img src="{{$user->profile()->image}}" class="rounded-circle" style="height:150px">
 
        </div>
        <div class="col-9 pt-5">
-        <div class="d-flex justify-content-between align-items-baseline "> 
+        <div class="d-flex justify-content-between align-items-baseline ">
             <div class="d-flex align-items-center pb-4 ">
                 <div class="h4">{{$user->username}}</div>
 
@@ -20,7 +20,7 @@
            @endcan
 
         </div>
-       
+
     <div class="d-flex">
             <div class="pr-5"><strong> {{$user->posts->count()}} </strong> posts</div>
             <div class="pr-5"><strong>{{$user->profile->followers->count()}}</strong> followers</div>
@@ -32,11 +32,11 @@
         <div> <a href="#"> {{ $user->profile->url ?? 'N/A' }}</a>  </div>
 
         @can('update', $user->profile)
-        <a href="/profile/{{$user->id}}/edit"> Edit profile </a> 
+        <a href="{{route('profile.edit',$user)}}"> Edit profile </a>
         @endcan
 
     </div>
-    
+
    </div>
 
     <div class="row pt-5">
